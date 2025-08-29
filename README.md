@@ -1,12 +1,7 @@
 print("AEGONA STORE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
 
 local selecting = nil
-
 
 local AegonaStore = Instance.new("ScreenGui")
 local Background = Instance.new("Frame")
@@ -307,7 +302,7 @@ UICorner_15.Parent = Background2
 
 -- Scripts:
 
-local function WJZPT_fake_script() -- TitleTime.LocalScript 
+local function YTZVT_fake_script() -- TitleTime.LocalScript 
 	local script = Instance.new('LocalScript', TitleTime)
 
 	local textLabel = script.Parent
@@ -321,8 +316,8 @@ local function WJZPT_fake_script() -- TitleTime.LocalScript
 	end
 	
 end
-coroutine.wrap(WJZPT_fake_script)()
-local function PNDOWWR_fake_script() -- Background.Script 
+coroutine.wrap(YTZVT_fake_script)()
+local function VMSCHZA_fake_script() -- Background.Script 
 	local script = Instance.new('Script', Background)
 
 	local UIS = game:GetService("UserInputService")
@@ -361,8 +356,8 @@ local function PNDOWWR_fake_script() -- Background.Script
 	end)
 	
 end
-coroutine.wrap(PNDOWWR_fake_script)()
-local function YIZCTA_fake_script() -- Background.Main 
+coroutine.wrap(VMSCHZA_fake_script)()
+local function IZUCIJ_fake_script() -- Background.Main 
 	local script = Instance.new('LocalScript', Background)
 
 	script.Parent.TitleName.Text = game.Players.LocalPlayer.Name.." @"..game.Players.LocalPlayer.DisplayName
@@ -381,40 +376,67 @@ local function YIZCTA_fake_script() -- Background.Main
 	end)
 	
 	
+	
+	
+	
 	local player = game.Players.LocalPlayer
 	local character = player.Character or player.CharacterAdded:Wait()
 	local noclip = false
+	local connection
 	
+	
+	local function enableNoclip()
+		connection = game:GetService("RunService").Stepped:Connect(function()
+			for _, part in pairs(character:GetDescendants()) do
+				if part:IsA("BasePart") then
+					part.CanCollide = false
+				end
+			end
+		end)
+	end
+	
+	
+	local function disableNoclip()
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+	end
+	
+	
+	game:GetService("UserInputService").InputBegan:Connect(function(input, gpe)
+		if gpe then return end
+		if input.KeyCode == Enum.KeyCode.N then
+			noclip = not noclip
+			if noclip then
+				enableNoclip()
+				print("Noclip: ON")
+			else
+				disableNoclip()
+				print("Noclip: OFF")
+			end
+		end
+	end)
 	
 	script.Parent.Noclip.MouseButton1Click:Connect(function()
 		noclip = not noclip
 		if noclip then
 			script.Parent.Noclip.Text = "ทะลุ : เปิด"
+			enableNoclip()
 		else
+			
 			script.Parent.Noclip.Text = "ทะลุ : ปิด"
+			disableNoclip()
 		end
 	end)
-	
-	
-	game:GetService("RunService").Stepped:Connect(function()
-		if noclip and character then
-			for _, part in pairs(character:GetDescendants()) do
-				if part:IsA("BasePart") and part.CanCollide == true then
-					part.CanCollide = false
-				end
-			end
-		end
-	end)
-	
 end
-coroutine.wrap(YIZCTA_fake_script)()
-local function TKHHW_fake_script() -- Toggle.LocalScript 
+coroutine.wrap(IZUCIJ_fake_script)()
+local function DLQVS_fake_script() -- Toggle.LocalScript 
 	local script = Instance.new('LocalScript', Toggle)
 
 	
 	
 	script.Parent.MouseButton1Click:Connect(function()
-		script["minimal-pop-click-ui"]:Play()
 		if selecting == 1 then
 			script.Parent.Parent.Background.Visible = not script.Parent.Parent.Background.Visible
 		elseif selecting == 2 then
@@ -422,8 +444,8 @@ local function TKHHW_fake_script() -- Toggle.LocalScript
 		end
 	end)
 end
-coroutine.wrap(TKHHW_fake_script)()
-local function WEBB_fake_script() -- SelectFrame.Main 
+coroutine.wrap(DLQVS_fake_script)()
+local function JTXH_fake_script() -- SelectFrame.Main 
 	local script = Instance.new('LocalScript', SelectFrame)
 
 	local Blur = Instance.new("BlurEffect")
@@ -463,8 +485,8 @@ local function WEBB_fake_script() -- SelectFrame.Main
 		game.Players.LocalPlayer:Kick("script ยังไม่เสร็จ รอก่อนนน!!")
 	end)
 end
-coroutine.wrap(WEBB_fake_script)()
-local function FHUW_fake_script() -- Background2.Script 
+coroutine.wrap(JTXH_fake_script)()
+local function THMZCBG_fake_script() -- Background2.Script 
 	local script = Instance.new('Script', Background2)
 
 	local UIS = game:GetService("UserInputService")
@@ -503,4 +525,4 @@ local function FHUW_fake_script() -- Background2.Script
 	end)
 	
 end
-coroutine.wrap(FHUW_fake_script)()
+coroutine.wrap(THMZCBG_fake_script)()
