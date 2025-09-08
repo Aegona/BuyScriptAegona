@@ -300,6 +300,9 @@ Background2.Visible = false
 
 UICorner_15.Parent = Background2
 
+
+kick
+
 -- Scripts:
 
 local function YTZVT_fake_script() -- TitleTime.LocalScript 
@@ -482,7 +485,34 @@ local function JTXH_fake_script() -- SelectFrame.Main
 		BackgroundScript1:Destroy()
 		Background:Destroy()
 		
-		game.Players.LocalPlayer:Kick("script ยังไม่เสร็จ รอก่อนนน!!")
+		local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local hum = char:WaitForChild("Humanoid")
+
+-- สร้างเก้าอี้
+local chair = Instance.new("Part")
+chair.Size = Vector3.new(2, 1, 2)
+chair.Anchored = false
+chair.CanCollide = false -- ปิดการชน
+chair.Parent = workspace
+
+-- ทำให้เก้าอี้ติดกับตัวผู้เล่น
+local weld = Instance.new("WeldConstraint")
+weld.Part0 = hrp
+weld.Part1 = chair
+weld.Parent = hrp
+
+-- จัดตำแหน่งเก้าอี้ให้อยู่ใต้ตูด
+
+
+-- ทำให้ผู้เล่นเหมือนนั่ง
+hum.Sit = true
+wait(0.5)
+chair.CFrame = hrp.CFrame * CFrame.new(0, -1.5, 0)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+
 	end)
 end
 coroutine.wrap(JTXH_fake_script)()
